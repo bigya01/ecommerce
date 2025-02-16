@@ -2,25 +2,18 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { HeartIcon, PlusIcon } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-
-
+import { CartButton } from "./cart/button";
 
 export default function ProductCard({
-  name,
   href,
-  image,
-  price,
-  category,
+  product,
 }: {
-  name: string;
   href: string;
-  image: string;
-  price: string;
-  category: string;
+  product: any;
 }) {
   return (
-    <Card className="w-[250px] group relative space-y-4 overflow-hidden">
-      <figure className="group-hover:opacity-90">
+    <Card className="w-[250px] h-[400px] group relative space-y-4 overflow-hidden flex flex-col">
+      <figure className="group-hover:opacity-90 h-[250px]">
         <Button
           variant="ghost"
           size="icon"
@@ -29,31 +22,31 @@ export default function ProductCard({
           <HeartIcon className="size-4" />
         </Button>
         <img
-          className="aspect-square w-full"
-          src={image}
+          className="h-full w-full object-cover"
+          src={product.thumbnail}
           width={300}
           height={500}
-          alt={name}
+          alt={product.title}
         />
       </figure>
-      <CardContent className="px-4 py-0">
+      <CardContent className="px-4 py-0 flex-grow">
         <div className="flex justify-between">
           <div>
             <h3 className="text-lg">
               <Link href={href}>
                 <span aria-hidden="true" className="absolute inset-0" />
-                {name}
+                {product.title}
               </Link>
             </h3>
-            <p className="text-sm text-muted-foreground capitalize">{category}</p>
+            <p className="text-sm text-muted-foreground capitalize">
+              {product.category}
+            </p>
           </div>
-          <p className="text-lg font-semibold">{price}</p>
+          <p className="text-lg font-semibold">{product.price}</p>
         </div>
       </CardContent>
       <CardFooter className="p-0 border-t">
-        <Button variant="ghost" className="w-full">
-          <PlusIcon className="size-4 me-1" /> Add to Cart
-        </Button>
+        <CartButton product={product} />
       </CardFooter>
     </Card>
   );
