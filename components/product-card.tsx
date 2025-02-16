@@ -45,7 +45,7 @@ export default function ProductCard({
                 {name}
               </Link>
             </h3>
-            <p className="text-sm text-muted-foreground">{category}</p>
+            <p className="text-sm text-muted-foreground capitalize">{category}</p>
           </div>
           <p className="text-lg font-semibold">{price}</p>
         </div>

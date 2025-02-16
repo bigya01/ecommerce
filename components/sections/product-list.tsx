@@ -1,20 +1,10 @@
-"use client";
-
 import ProductCard from "../product-card";
-import { use, useEffect, useState } from "react";
 import axios from "axios";
 
-export function ProductList() {
-  const [productData, setProductData] = useState<any[]>([]);
-  console.log(productData);
+export async function ProductList() {
+  const response= await axios.get("https://dummyjson.com/products");
+const productData : any[]= response.data.products;
 
-  useEffect(() => {
-    async  function fetchData  () {
-      const response = await axios.get("https://dummyjson.com/products");
-      setProductData(response.data.products);
-    }
-    fetchData();
-  }, []);
   return (
     <div className="flex flex-wrap gap-4">
         {productData.map((product) => (
