@@ -29,9 +29,7 @@ export default function UserDetails() {
           <PaymentOptions />
         </form>
       </CardContent>
-      <CardFooter>
-        <Button className="w-full">Proceed to Pay</Button>
-      </CardFooter>
+      
     </Card>
   )
 }
