@@ -1,6 +1,7 @@
 import { User, ShoppingCart, Heart } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { ModeToggle } from "../toggle";
 
 
 export function Header() {
@@ -15,7 +16,7 @@ export function Header() {
         <Input placeholder="Search" />
         <Link href="/cart"><ShoppingCart size="32" /></Link>
         <Heart size="32" />
-        <User size="32" />
+        <ModeToggle />
       </div>
     </div>
   );

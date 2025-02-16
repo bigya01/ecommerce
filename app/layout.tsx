@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import {Header} from "@/components/sections/header";
+import {Toaster} from "react-hot-toast";
+import { ThemeProvider } from "@/components/theme-provider"
 
 
 
@@ -30,8 +32,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
         <Header />
         {children}
+        <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
