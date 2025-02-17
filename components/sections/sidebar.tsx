@@ -10,21 +10,38 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
+import { useState,  useEffect } from "react";
 import { MultiSelect } from "../multi-select";
+import useProduct from "@/store/products";
+import { Button } from "@/components/ui/button";
 
 const categories = ["Beauty", "Health"];
 
 export function Sidebar() {
-  const [priceRange, setPriceRange] = useState([0, 100]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const { categories, getMinPrice, getMaxPrice, setPriceRange, priceRange, setSortBy, setSelectedCategory } = useProduct();
+  const minPrice = getMinPrice();
+  const maxPrice = getMaxPrice();
+
+  useEffect(() => {
+    setPriceRange([minPrice, maxPrice]);
+  }, [minPrice, maxPrice]);
+
+
 
   return (
     <div className="flex flex-col gap-y-8 mx-6">
       <div className="flex flex-col gap-y-4">
-        <div className="text-lg font-semibold">Filters</div>
+        <div
+          className="text-lg font-semibold flex justify-between items-center
+        "
+        >
+          Filters <Button>Clear</Button>
+        </div>
         <div className="h-0.5 w-full bg-black" />
-        <Select>
+        <Select onValueChange={(value) => {
+            const [key, order] = value.split("-");
+            setSortBy([key, order]);
+        }}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Sort By" />
           </SelectTrigger>
@@ -44,9 +61,9 @@ export function Sidebar() {
         <Slider
           value={priceRange}
           onValueChange={(value) => setPriceRange(value)}
-          min={0}
-          max={1000}
-          step={10}
+          min={getMinPrice()}
+          max={getMaxPrice()}
+          step={1}
           className="w-full"
         />
         <div className="flex justify-between text-sm">
@@ -56,22 +73,27 @@ export function Sidebar() {
         <div className="text-lg">Categories</div>
         <MultiSelect
           placeholder="Select Categories"
-          options={categories.map((category) => ({ label: category, value: category }))}
-          onValueChange={(value:string[]) => setSelectedCategories(value)}
+          options={categories().map((category) => ({
+            label: category,
+            value: category,
+          }))}
+          onValueChange={(value: string[]) => setSelectedCategory(value)}
         />
       </div>
       <div className="flex flex-col gap-y-4">
         <div className="text-lg font-semibold">Suggested Categories</div>
         <div className="h-0.5 w-full bg-black" />
         <div className="flex flex-wrap gap-4">
-          {categories.map((category) => (
-            <button
-              key={category}
-              className="text-sm border rounded-full px-4 py-2"
-            >
-              {category}
-            </button>
-          ))}
+          {categories()
+            .slice(0, 5)
+            .map((category) => (
+              <button
+                key={category}
+                className="text-sm border rounded-full px-4 py-2 capitalize"
+              >
+                {category}
+              </button>
+            ))}
         </div>
       </div>
     </div>
