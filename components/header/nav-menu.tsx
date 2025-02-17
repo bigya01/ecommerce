@@ -18,7 +18,6 @@ import {
 export function NavMenu() {
   const [clicked, setClicked] = useState(false);
   const [categories, setCategories] = useState([]);
-  console.log(categories);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +29,7 @@ export function NavMenu() {
     fetchData();
   }, []);
   return (
-    <NavigationMenu>
+    <NavigationMenu className="w-[350px]">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Categories</NavigationMenuTrigger>

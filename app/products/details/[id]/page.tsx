@@ -26,7 +26,6 @@ export default async function ProductDetail({
   const id = (await params).id;
   const response = await axios.get(`https://dummyjson.com/products/${id}`);
   const product = response.data;
-  console.log(product);
 
   return (
     <div className="max-w-7xl mx-auto p-6">
