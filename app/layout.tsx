@@ -4,6 +4,7 @@ import "./globals.css";
 import {Header} from "@/components/sections/header";
 import {Toaster} from "react-hot-toast";
 import { ThemeProvider } from "@/components/theme-provider"
+import { Footer } from "@/components/sections/footer";
 
 
 
@@ -40,6 +41,7 @@ export default function RootLayout({
           >
         <Header />
         {children}
+        <Footer />
         <Toaster />
         </ThemeProvider>
       </body>

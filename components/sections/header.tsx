@@ -9,7 +9,7 @@ export function Header() {
   return (
     <div className=" border-b-2 flex justify-between  items-center p-4">
       <NavMenu />
-      <Link href="/products" className="font-bold text-2xl">
+      <Link href="/" className="font-bold text-2xl">
         nepmart
       </Link>
       <div className="flex gap-x-4">

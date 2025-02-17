@@ -23,7 +23,7 @@ export function ProductList({ products }: { products: any[] }) {
 
   return (
     <div className="flex flex-col gap-y-8 w-full">
-      <div className="flex flex-wrap gap-4 items-center justify-center">
+      <div className="flex flex-wrap gap-4 items-center ">
         {filteredProducts().slice(start, end).map((product) => (
           <ProductCard
             key={product.id}
