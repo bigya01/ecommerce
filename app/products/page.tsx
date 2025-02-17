@@ -1,16 +1,19 @@
-import { Header } from "@/components/sections/header";
 import type { Metadata } from "next";
 import { ProductList } from "@/components/sections/product-list";
+import axios from "axios";
 
 export const metadata: Metadata = {
   title: "Product - NepMart",
   description: "Products available in NepMart",
 };
-export default function ProductPage(){
+export default async function ProductPage() {
+  const response = await axios.get("https://dummyjson.com/products");
+  const productData: any[] = response.data.products;
+
   return (
     <div className="flex m-2 mt-8">
       <div className="min-w-[300] w-1/6">filter</div>
-      <ProductList  />
+      <ProductList products={productData} />
     </div>
   );
 }

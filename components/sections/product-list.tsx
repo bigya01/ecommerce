@@ -1,16 +1,14 @@
 import ProductCard from "../product-card";
 import axios from "axios";
 
-export async function ProductList() {
-  const response = await axios.get("https://dummyjson.com/products");
-  const productData: any[] = response.data.products;
+export async function ProductList({ products }: { products: any[] }) {
 
   return (
     <div className="flex flex-wrap gap-4">
-      {productData.map((product) => (
+      {products.map((product) => (
         <ProductCard
           key={product.id}
-          href={`/products/${product.id}`}
+          href={`/products/details/${product.id}`}
           product={product}
         />
       ))}
