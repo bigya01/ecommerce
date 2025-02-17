@@ -5,6 +5,7 @@ import { Header } from "@/components/sections/header";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Sidebar } from "@/components/sections/sidebar";
+import { Search } from "@/components/header/search";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex m-2 mt-8">
-      <div className="min-w-[300] w-1/6">
+    <div className="flex flex-col-reverse lg:flex-row m-4 mt-8 gap-y-8">
+      <div className="min-w-[300] w-full lg:w-1/6">
         <Sidebar />
       </div>
       {children}
+      <div className="block lg:hidden px-4"><Search/></div>
     </div>
   );
 }

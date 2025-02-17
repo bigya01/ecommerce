@@ -93,8 +93,8 @@ export default async function ProductDetail({
           </div>
         </div>
       </div>
-      <div className="mt-12 flex gap-6">
-        <div className="flex flex-col gap-y-6 w-2/6">
+      <div className="mt-12 flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col gap-y-6 w-full lg:w-2/6">
           <Card>
             <CardHeader>
               <CardTitle>Product Details</CardTitle>

@@ -29,7 +29,7 @@ export function NavMenu() {
     fetchData();
   }, []);
   return (
-    <NavigationMenu className="w-[350px]">
+    <NavigationMenu className="w-[350px] hidden md:block">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Categories</NavigationMenuTrigger>

@@ -12,7 +12,7 @@ export default function ProductCard({
   product: any;
 }) {
   return (
-    <Card className="w-[250px] h-[400px] group relative space-y-4 overflow-hidden flex flex-col">
+    <Card className="w-[175px] md:w-[200px] lg:w-[250px] h-[400px] group relative space-y-4 overflow-hidden flex flex-col">
       <figure className="group-hover:opacity-90 h-[250px]">
         <Button
           variant="ghost"

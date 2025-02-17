@@ -91,13 +91,13 @@ export function Esewa() {
         required
       />
       </div>
-      <Button type="submit">Pay with eSewa</Button>
+      <Button type="submit" className="w-full">Pay with eSewa</Button>
     </form>
   );
 }
 export default function PaymentOptions() {
   return (
-    <div className="mt-6">
+    <div className="mt-6 flex flex-col space-y-4">
       <h3 className="text-lg font-semibold mb-4">Payment Method</h3>
       <RadioGroup defaultValue="esewa">
         <div className="flex items-center space-x-2">
