@@ -1,5 +1,5 @@
 'use client'
-
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Button } from "@/components/ui/button"
@@ -9,14 +9,15 @@ import { Badge } from "@/components/ui/badge"
 import { 
   ShoppingBag, 
   ArrowRight, 
-
-  ChevronRight,
   Sparkles
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import ProductCard from '@/components/product-card'
+import axios from 'axios'
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-background text-foreground">
       <HeroSection />
       <FeaturedProducts />
       <StatisticsSection />
@@ -39,14 +40,14 @@ function HeroSection() {
             transition={{ duration: 0.5 }}
             className="space-y-8"
           >
-            <Badge variant="secondary" className="text-sm">
+            <Badge variant="outline" className="text-sm">
               <Sparkles className="h-3.5 w-3.5 mr-1" />
               New Collection 2024
             </Badge>
             
             <h1 className="text-5xl md:text-7xl font-bold tracking-tighter">
               Discover Your 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"> Perfect Style</span>
+              <span className="text-foreground border-b-2 border-foreground"> Perfect Style</span>
             </h1>
             
             <p className="text-lg text-muted-foreground md:w-[80%]">
@@ -54,12 +55,11 @@ function HeroSection() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90">
-                Shop Now <ShoppingBag className="ml-2" />
-              </Button>
-              <Button size="lg" variant="outline">
-                View Lookbook <ChevronRight className="ml-2" />
-              </Button>
+              <Link href="/products">
+                <Button size="lg">
+                  Shop Now <ShoppingBag className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
             
             <div className="flex items-center gap-8 pt-8">
@@ -82,11 +82,11 @@ function HeroSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative aspect-square rounded-full bg-gradient-to-tr from-purple-100 to-pink-100 dark:from-purple-950 dark:to-pink-950">
+            <div className="relative aspect-square rounded-full bg-muted">
               <img
-                src="/hero-image.jpg" // Replace with your image
+                src="https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/1.png" // Replace with your image
                 alt="Fashion Model"
-                className="absolute inset-0 object-cover rounded-full p-4"
+                className="absolute inset-0 object-cover rounded-full p-4 grayscale"
               />
             </div>
             
@@ -103,9 +103,9 @@ function HeroSection() {
               }}
               className="absolute -top-6 right-10"
             >
-              <Card className="p-3 backdrop-blur-sm bg-white/80 dark:bg-black/80">
+              <Card className="p-3 backdrop-blur-sm bg-background/90 border border-border">
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-green-500" />
+                  <div className="h-2 w-2 rounded-full bg-black dark:bg-white" />
                   <span className="text-sm font-medium">1.2k+ Shopping</span>
                 </div>
               </Card>
@@ -118,32 +118,18 @@ function HeroSection() {
 }
 
 function FeaturedProducts() {
-  const products = [
-    { id: 1, name: "Smart Watch", price: "$199", image: "/placeholder.svg?height=300&width=300" },
-    { id: 2, name: "Wireless Earbuds", price: "$129", image: "/placeholder.svg?height=300&width=300" },
-    { id: 3, name: "Laptop", price: "$999", image: "/placeholder.svg?height=300&width=300" },
-  ]
+  const [products, setProducts] = useState([])
+  useEffect(() => {
+    axios.get("https://dummyjson.com/products/")
+      .then((response) => setProducts(response.data.products))
+  }, [])
 
   return (
-    <section className="py-20 px-4">
+    <section className="py-20 px-4 bg-background">
       <h2 className="text-4xl font-bold text-center mb-12">Featured Products</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {products.map((product) => (
-          <motion.div
-            key={product.id}
-            className="bg-white rounded-lg shadow-lg overflow-hidden"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <img src={product.image || "/placeholder.svg"} alt={product.name} className="w-full h-64 object-cover" />
-            <div className="p-4">
-              <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-              <p className="text-gray-600">{product.price}</p>
-              <Button variant="outline" className="mt-4 w-full">
-                Add to Cart
-              </Button>
-            </div>
-          </motion.div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        {products.slice(0,4).map((product:any) => (
+          <ProductCard key={product.id} product={product} href={`/details/${product.id}`} />
         ))}
       </div>
     </section>
@@ -163,7 +149,7 @@ function StatisticsSection() {
   })
 
   return (
-    <section ref={ref} className="bg-purple-600 text-white py-20 px-4">
+    <section ref={ref} className="bg-black text-white dark:bg-white dark:text-black py-20 px-4">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-12">Our Success in Numbers</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -176,7 +162,7 @@ function StatisticsSection() {
               transition={{ duration: 0.8, delay: stat.id * 0.2 }}
             >
               <div className="text-5xl font-bold mb-2">{stat.value}</div>
-              <div className="text-xl">{stat.label}</div>
+              <div className="text-xl opacity-80">{stat.label}</div>
             </motion.div>
           ))}
         </div>
@@ -187,10 +173,10 @@ function StatisticsSection() {
 
 function NewsletterSection() {
   return (
-    <section className="py-20 px-4 bg-gray-100">
+    <section className="py-20 px-4 bg-muted">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-6">Stay Updated</h2>
-        <p className="text-xl mb-8 text-gray-600">
+        <p className="text-xl mb-8 text-muted-foreground">
           Subscribe to our newsletter for exclusive deals and updates
         </p>
         <motion.div
@@ -204,12 +190,11 @@ function NewsletterSection() {
             placeholder="Enter your email" 
             className="flex-grow"
           />
-          <Button className="bg-purple-600 hover:bg-purple-700">
-            Subscribe <ArrowRight className="ml-2" />
+          <Button>
+            Subscribe <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </motion.div>
       </div>
     </section>
   )
 }
-
