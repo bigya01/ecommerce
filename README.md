@@ -15,7 +15,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-<img src ="./screenshots/coverpage-dark.png"
+<img src ="./screenshots/coverpage-dark.png">
 
 <img src ="./screenshots/coverpage-light.png">
 <img src ="./screenshots/product page.png">
