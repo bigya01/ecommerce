@@ -10,6 +10,7 @@ type CartStore = {
   items: CartItem[];
   add: (product: any) => void;
   remove: (product: any) => void;
+  deleteItem: (product: any) => void;
   clear: () => void;
 };
 
@@ -39,8 +40,24 @@ const useCart = create<CartStore>()(
         });
       },
       remove: (product: any) => {
+        set((state) => {
+          const existingItem = state.items.find(
+            (item) => item.product.id === product.id
+          );
+          return {
+            items: state.items
+              .map((item) =>
+                item.product.id === product.id
+                  ? { ...item, count: item.count - 1 }
+                  : item
+              )
+              .filter((item) => item.count > 0),
+          };
+        });
+      },
+      deleteItem: (product: any) => {
         set((state) => ({
-          items: state.items.filter((item) => item.product !== product),
+          items: state.items.filter((item) => item.product.id !== product.id),
         }));
       },
       clear: () => {

@@ -1,11 +1,11 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, TrashIcon } from "lucide-react";
 import useCart from "@/store/cart";
 
 export default function CartItems() {
-  const { items } = useCart();
+  const { items, add, deleteItem,  remove} = useCart();
   const subtotal = items.reduce(
     (acc, item) => acc + item.product.price * item.count,
     0,
@@ -41,12 +41,15 @@ export default function CartItems() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" onClick={() => remove(item.product)}>
                       <Minus className="h-4 w-4" />
                     </Button>
                     <span>{item.count}</span>
-                    <Button variant="outline" size="icon">
+                    <Button variant="outline" size="icon" onClick={() => add(item.product)}>
                       <Plus className="h-4 w-4" />
+                    </Button>
+                    <Button variant="destructive" size="icon" onClick={() => deleteItem(item.product)}>
+                      <TrashIcon className="h-4 w-4" />
                     </Button>
                   </div>
                 </li>
