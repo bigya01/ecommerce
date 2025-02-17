@@ -14,7 +14,7 @@ export function Header() {
     <div className=" border-b-2 flex justify-between  items-center p-4">
       <NavMenu />
       <Link href="/" className="font-bold text-2xl">
-        nepmart
+        NepMart
       </Link>
       <div className="flex gap-x-4">
         <div className=" hidden lg:block">
