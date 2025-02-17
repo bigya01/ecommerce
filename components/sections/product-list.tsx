@@ -18,7 +18,7 @@ export function ProductList({ products }: { products: any[] }) {
         {products.slice(start, end).map((product) => (
           <ProductCard
             key={product.id}
-            href={`/products/details/${product.id}`}
+            href={`/details/${product.id}`}
             product={product}
           />
         ))}

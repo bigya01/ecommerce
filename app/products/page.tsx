@@ -9,13 +9,10 @@ export const metadata: Metadata = {
 export default async function ProductPage() {
   const init_response = await axios.get("https://dummyjson.com/products");
   const total = init_response.data.total;
-  const response = await axios.get("https://dummyjson.com/products?limit=" + total);
+  const response = await axios.get(
+    "https://dummyjson.com/products?limit=" + total
+  );
   const productData: any[] = response.data.products;
 
-  return (
-    <div className="flex m-2 mt-8">
-      <div className="min-w-[300] w-1/6">filter</div>
-      <ProductList products={productData} />
-    </div>
-  );
+  return <ProductList products={productData} />;
 }

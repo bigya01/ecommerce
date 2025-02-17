@@ -7,7 +7,7 @@ export function Search() {
   const [term, setTerm] = useState("");
   const handleKeyDown = (e : any) =>{
   if (e.key === "Enter") {
-    window.location.href = `/search?q=${encodeURIComponent(term)}`;
+    window.location.href = `/products/search?q=${encodeURIComponent(term)}`;
   }
   };
   return (
