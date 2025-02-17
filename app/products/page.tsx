@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   title: "Product - NepMart",
   description: "Products available in NepMart",
 };
-export default function ProductPage() {
+export default function ProductPage(){
   return (
     <div className="flex m-2 mt-8">
       <div className="min-w-[300] w-1/6">filter</div>
-      <ProductList />
+      <ProductList  />
     </div>
   );
 }

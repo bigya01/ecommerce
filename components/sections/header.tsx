@@ -2,7 +2,7 @@ import { User, ShoppingCart, Heart } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { ModeToggle } from "../toggle";
-
+import { Search } from "../header/search";
 
 export function Header() {
   return (
@@ -13,7 +13,7 @@ export function Header() {
       </div>
       <Link href="/products" className="font-bold text-2xl">nepmart</Link>
       <div className="flex gap-x-4">
-        <Input placeholder="Search" />
+        <Search />
         <Link href="/cart"><ShoppingCart size="32" /></Link>
         <Heart size="32" />
         <ModeToggle />
