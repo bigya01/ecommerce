@@ -60,7 +60,7 @@ export function Sidebar() {
         <div className="text-lg">Price</div>
         <Slider
           value={priceRange}
-          onValueChange={(value) => setPriceRange(value)}
+          onValueChange={(value) => setPriceRange(value as [number, number])}
           min={getMinPrice()}
           max={getMaxPrice()}
           step={1}

@@ -14,8 +14,8 @@ type ProductStore = {
     setPriceRange: (range: [number, number]) => void;
     getMinPrice: () => number;
     getMaxPrice: () => number;
-    sortBy: ["title" | "price" | "date", "asc" | "dec"];
-    setSortBy: (sort: ["title" | "price" | "date", "asc" | "dec"]) => void;
+    sortBy: [string,string];
+    setSortBy: (sort: [string,string]) => void;
 };
 
 const useProducts = create<ProductStore>()(
@@ -74,7 +74,7 @@ const useProducts = create<ProductStore>()(
             priceRange: [0, Infinity],
             setPriceRange: (range: [number, number]) => set({ priceRange: range }),
             sortBy: ["title", "asc"],
-            setSortBy: (sort: ["title" | "price" | "date", "asc" | "dec"]) => set({ sortBy: sort }),
+            setSortBy: (sort: [string, string]) => set({ sortBy: sort }),
         }),
         {
             name: "product-store",
