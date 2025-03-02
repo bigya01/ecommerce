@@ -2,8 +2,9 @@ import axios from "axios";
 import { ProductList } from "@/components/sections/product-list";
 import { redirect } from "next/navigation";
 
-export default async function Search({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
-  const { q: query = '' } = await searchParams;  if (!query) {
+export default async function Search({ searchParams }: { searchParams: { q: string } }) {
+  const query = searchParams.q;
+  if (!query) {
     redirect("/products");
   }
 

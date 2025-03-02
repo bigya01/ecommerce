@@ -10,23 +10,29 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { useState,  useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MultiSelect } from "../multi-select";
 import useProduct from "@/store/products";
 import { Button } from "@/components/ui/button";
-
-const categories = ["Beauty", "Health"];
+import Link from "next/link";
 
 export function Sidebar() {
-  const { categories, getMinPrice, getMaxPrice, setPriceRange, priceRange, setSortBy, setSelectedCategory } = useProduct();
+  const {
+    categories,
+    getMinPrice,
+    getMaxPrice,
+    setPriceRange,
+    priceRange,
+    setSortBy,
+    setSelectedCategory,
+    clear,
+  } = useProduct();
   const minPrice = getMinPrice();
   const maxPrice = getMaxPrice();
 
   useEffect(() => {
     setPriceRange([minPrice, maxPrice]);
   }, [minPrice, maxPrice]);
-
-
 
   return (
     <div className="flex flex-col gap-y-8 mx-6">
@@ -35,13 +41,15 @@ export function Sidebar() {
           className="text-lg font-semibold flex justify-between items-center
         "
         >
-          Filters <Button>Clear</Button>
+          Filters <Button onClick={clear}>Clear</Button>
         </div>
         <div className="h-0.5 w-full bg-black" />
-        <Select onValueChange={(value) => {
+        <Select
+          onValueChange={(value) => {
             const [key, order] = value.split("-");
             setSortBy([key, order]);
-        }}>
+          }}
+        >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Sort By" />
           </SelectTrigger>
@@ -87,12 +95,14 @@ export function Sidebar() {
           {categories()
             .slice(0, 5)
             .map((category) => (
-              <button
-                key={category}
-                className="text-sm border rounded-full px-4 py-2 capitalize"
-              >
-                {category}
-              </button>
+              <Link key={category} href={`/products/${category}`}>
+                <button
+                  key={category}
+                  className="text-sm border rounded-full px-4 py-2 capitalize"
+                >
+                  {category}
+                </button>
+              </Link>
             ))}
         </div>
       </div>

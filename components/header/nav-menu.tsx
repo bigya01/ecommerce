@@ -14,6 +14,8 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { Menu } from "lucide-react";
+import { MobileDrawer } from "./drawer";
 
 export function NavMenu() {
   const [clicked, setClicked] = useState(false);
@@ -29,31 +31,34 @@ export function NavMenu() {
     fetchData();
   }, []);
   return (
-    <NavigationMenu className="w-[350px] hidden md:block">
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <div className="w-[800px] grid grid-cols-4 gap-4 p-2">
-              {categories.map((category) => (
-                <Link
-                  key={category}
-                  className="p-2 capitalize cursor-pointer hover:bg-gray-100 rounded-md"
-                  href={`/products/${category}`}
-                >
-                  {category}
-                </Link>
-              ))}
-            </div>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Brands</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <NavigationMenuLink>Link</NavigationMenuLink>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <div>
+      <NavigationMenu className="w-[350px] hidden md:block">
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <div className="w-[800px] grid grid-cols-4 gap-4 p-2">
+                {categories.map((category) => (
+                  <Link
+                    key={category}
+                    className="p-2 capitalize cursor-pointer hover:bg-gray-100 rounded-md"
+                    href={`/products/${category}`}
+                  >
+                    {category}
+                  </Link>
+                ))}
+              </div>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Brands</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <NavigationMenuLink>Link</NavigationMenuLink>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+      <MobileDrawer categories={categories}/>
+    </div>
   );
 }
